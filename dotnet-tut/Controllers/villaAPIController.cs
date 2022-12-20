@@ -1,4 +1,6 @@
-﻿using dotnet_tut.Models;
+﻿using dotnet_tut.Data;
+using dotnet_tut.Models;
+using dotnet_tut.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_tut.Controllers
@@ -8,13 +10,15 @@ namespace dotnet_tut.Controllers
     public class villaAPIController: ControllerBase
     {
         [HttpGet]
-        public IEnumerable<Villa> GetVillas()
+        public IEnumerable<VillaDTO> GetVillas()
         {
-            return new List<Villa>
-            {
-                new Villa{Id=1, Name="olumide villa one"},
-                new Villa{Id=2, Name="new villa two"}
-            };
+            return VillaStore.villaList;
+        }
+
+        [HttpGet("id")]
+        public VillaDTO GetVilla(int id)
+        {
+            return VillaStore.villaList.FirstOrDefault(u => u.Id == id);
         }
     }
 }
